@@ -14,3 +14,18 @@ export const handleGetTournaments = async (req: Request<{}>, res: Response) => {
     res.status(400).send(res.json())
   }
 }
+
+export const handleGetMixedCategoriesByTournament = async (
+  req: Request<{}>,
+  res: Response,
+) => {
+  try {
+    const tournaments = await Tournaments.find(
+      { _id: req.params.id },
+      { name: 1, mixedCategories: 1 },
+    )
+    res.status(200).send(res.json(tournaments))
+  } catch (err) {
+    res.status(400).send(res.json())
+  }
+}
