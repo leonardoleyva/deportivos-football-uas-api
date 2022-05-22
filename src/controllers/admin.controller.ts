@@ -1,6 +1,9 @@
 import mongoose from 'mongoose'
 import { Response } from 'express'
-import { fetchTournamentMetaData } from './tournament.functions'
+import {
+  fetchTournamentMetaData,
+  mixCategoryWithBranches,
+} from './tournament.functions'
 import { Request } from '../helpers/type'
 import '../models/tournament/schema'
 import '../models/user/schema'
@@ -25,6 +28,10 @@ export const handleCreateTournament = async (
 
     const { admins, coaches, referees, ...restMetaData } =
       await fetchTournamentMetaData(body)
+    const mixedCategories = mixCategoryWithBranches(
+      restMetaData.category,
+      restMetaData.branches,
+    )
 
     const newTournament = await new Tournaments({
       ...restMetaData,
@@ -36,6 +43,7 @@ export const handleCreateTournament = async (
         coaches,
         referees,
       },
+      mixedCategories,
       status: 'in-progress',
     }).save()
     res.status(200).send(res.json(newTournament))
@@ -57,6 +65,10 @@ export const handleUpdateTournamentBaseData = async (
 
     const { admins, coaches, referees, ...restMetaData } =
       await fetchTournamentMetaData(body)
+      const mixedCategories = mixCategoryWithBranches(
+        restMetaData.category,
+        restMetaData.branches,
+      )
 
     await Tournaments.updateOne(
       { _id: new mongoose.Types.ObjectId(params.id) },
@@ -71,6 +83,7 @@ export const handleUpdateTournamentBaseData = async (
             coaches,
             referees,
           },
+          mixedCategories,
         },
       },
     )

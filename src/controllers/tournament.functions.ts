@@ -94,7 +94,6 @@ export const fetchTournamentMetaData = async (
   const admins = await fetchAdminsMetaData(body.admins)
   const coaches = await fetchCoachesMetaData(body.coaches)
   const referees = await fetchRefereesMetaData(body.referees)
-  const mixedCategories = mixCategoryWithBranches(category, branches)
 
   return {
     category,
@@ -105,6 +104,5 @@ export const fetchTournamentMetaData = async (
     admins,
     coaches,
     referees,
-    mixedCategories,
   }
 }
