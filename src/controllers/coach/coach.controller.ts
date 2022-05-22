@@ -20,7 +20,7 @@ export const handleGetMixedCategoriesByTournament = async (
   res: Response,
 ) => {
   try {
-    const tournaments = await Tournaments.find(
+    const tournaments = await Tournaments.findById(
       { _id: req.params.id },
       { name: 1, mixedCategories: 1 },
     )
