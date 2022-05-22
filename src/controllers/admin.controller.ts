@@ -1,13 +1,14 @@
 import mongoose from 'mongoose'
 import { Response } from 'express'
 import {
-  fetchTournamentMetaData,
+  fetchTournamentMetaDataToCreate,
+  fetchTournamentMetaDataToUpdate,
   mixCategoryWithBranches,
 } from './tournament.functions'
 import { Request } from '../helpers/type'
 import '../models/tournament/schema'
 import '../models/user/schema'
-import { CreateTournamentBodyParams } from './type'
+import { CreateTournamentBodyParams, UpdateTournamentBodyParams } from './type'
 
 const Tournaments = mongoose.model('tournaments')
 const TournamentCategories = mongoose.model('tournament-categories')
@@ -27,7 +28,7 @@ export const handleCreateTournament = async (
     const { body } = req
 
     const { admins, coaches, referees, ...restMetaData } =
-      await fetchTournamentMetaData(body)
+      await fetchTournamentMetaDataToCreate(body)
     const mixedCategories = mixCategoryWithBranches(
       restMetaData.category,
       restMetaData.branches,
@@ -58,20 +59,14 @@ export const handleCreateTournament = async (
 }
 
 export const handleUpdateTournamentBaseData = async (
-  req: Request<CreateTournamentBodyParams>,
+  req: Request<UpdateTournamentBodyParams>,
   res: Response,
 ) => {
   try {
     const { body, params } = req
 
     const { admins, coaches, referees, ...restMetaData } =
-      await fetchTournamentMetaData(body)
-      const mixedCategories = mixCategoryWithBranches(
-        restMetaData.category,
-        restMetaData.branches,
-        // TODO: This value must not be static
-        'pending'
-      )
+      await fetchTournamentMetaDataToUpdate(body)
 
     await Tournaments.updateOne(
       { _id: new mongoose.Types.ObjectId(params.id) },
@@ -86,7 +81,6 @@ export const handleUpdateTournamentBaseData = async (
             coaches,
             referees,
           },
-          mixedCategories,
         },
       },
     )

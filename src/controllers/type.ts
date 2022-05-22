@@ -1,4 +1,4 @@
-export interface CreateTournamentBodyParams {
+export interface TournamentBodyParams {
   name: string
   type: string
   branches: string[]
@@ -14,3 +14,8 @@ export interface CreateTournamentBodyParams {
   coaches: string[]
   referees: string[]
 }
+
+export interface CreateTournamentBodyParams extends TournamentBodyParams {}
+
+export interface UpdateTournamentBodyParams
+  extends Omit<TournamentBodyParams, 'branches' | 'category'> {}

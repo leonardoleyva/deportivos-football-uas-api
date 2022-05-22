@@ -88,7 +88,13 @@ export const TournamentSchema = new Schema({
   },
   mixedCategories: {
     type: [
-      { _id: String, name: String, categoryName: String, branchName: String },
+      {
+        _id: String,
+        name: String,
+        categoryName: String,
+        branchName: String,
+        status: String,
+      },
     ],
     required: true,
   },

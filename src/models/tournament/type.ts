@@ -26,11 +26,14 @@ export interface Place {
   readonly city: City
 }
 
+export type MixedCategoryStatus = 'pending' | 'active'
+
 export interface MixedCategory {
   readonly _id: string
   readonly name: string
   readonly categoryName: string
   readonly branchName: string
+  readonly status: MixedCategoryStatus
 }
 
 export interface Tournament {

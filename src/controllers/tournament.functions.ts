@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import {
   City,
   MixedCategory,
+  MixedCategoryStatus,
   Place,
   TournamentBranch,
   TournamentCategory,
@@ -9,7 +10,7 @@ import {
 } from '../models/tournament'
 import '../models/tournament/schema'
 import '../models/user/schema'
-import { CreateTournamentBodyParams } from './type'
+import { CreateTournamentBodyParams, UpdateTournamentBodyParams } from './type'
 
 const TournamentCategories = mongoose.model('tournament-categories')
 const TournamentBranches = mongoose.model('tournament-branches')
@@ -23,7 +24,7 @@ const Referees = mongoose.model('referees')
 export const mixCategoryWithBranches = (
   category: TournamentCategory,
   branches: TournamentBranch[],
-  status: 'pending' | 'active'
+  status: MixedCategoryStatus,
 ): MixedCategory[] => {
   return branches.map(branch => ({
     _id: `${category._id}---${branch._id}`,
@@ -83,7 +84,7 @@ export const fetchRefereesMetaData = async (refereesIds: string[]) => {
   return referees
 }
 
-export const fetchTournamentMetaData = async (
+export const fetchTournamentMetaDataToCreate = async (
   body: CreateTournamentBodyParams,
 ) => {
   const [category, type, city] = await Promise.all([
@@ -102,6 +103,28 @@ export const fetchTournamentMetaData = async (
     type,
     city,
     branches,
+    places,
+    admins,
+    coaches,
+    referees,
+  }
+}
+
+export const fetchTournamentMetaDataToUpdate = async (
+  body: UpdateTournamentBodyParams,
+) => {
+  const [type, city] = await Promise.all([
+    fetchTournamentTypeMetaData(body.type),
+    fetchCityMetaData(body.city),
+  ])
+  const places = await fetchPlacesMetaData(body.places)
+  const admins = await fetchAdminsMetaData(body.admins)
+  const coaches = await fetchCoachesMetaData(body.coaches)
+  const referees = await fetchRefereesMetaData(body.referees)
+
+  return {
+    type,
+    city,
     places,
     admins,
     coaches,
