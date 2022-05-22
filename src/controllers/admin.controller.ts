@@ -31,6 +31,7 @@ export const handleCreateTournament = async (
     const mixedCategories = mixCategoryWithBranches(
       restMetaData.category,
       restMetaData.branches,
+      'pending',
     )
 
     const newTournament = await new Tournaments({
@@ -68,6 +69,8 @@ export const handleUpdateTournamentBaseData = async (
       const mixedCategories = mixCategoryWithBranches(
         restMetaData.category,
         restMetaData.branches,
+        // TODO: This value must not be static
+        'pending'
       )
 
     await Tournaments.updateOne(

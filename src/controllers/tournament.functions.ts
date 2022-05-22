@@ -23,12 +23,14 @@ const Referees = mongoose.model('referees')
 export const mixCategoryWithBranches = (
   category: TournamentCategory,
   branches: TournamentBranch[],
+  status: 'pending' | 'active'
 ): MixedCategory[] => {
   return branches.map(branch => ({
     _id: `${category._id}---${branch._id}`,
     name: `${category.name} - ${branch.name}`,
     categoryName: category.name,
     branchName: branch.name,
+    status,
   }))
 }
 
