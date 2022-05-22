@@ -36,6 +36,8 @@ export interface MixedCategory {
   readonly status: MixedCategoryStatus
 }
 
+export type TournamentStatus = 'in-progress' | 'active' | 'done' 
+
 export interface Tournament {
   readonly _id: string
   readonly name: string
@@ -55,4 +57,5 @@ export interface Tournament {
     referees: PrivateUser[]
   }
   readonly mixedCategories: MixedCategory[]
+  readonly status: TournamentStatus
 }

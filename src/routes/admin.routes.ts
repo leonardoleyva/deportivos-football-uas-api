@@ -6,7 +6,7 @@ import {
   handleGetOneTournament,
   handleGetTournaments,
   handleUpdateTournamentBaseData,
-} from '../controllers'
+} from '../controllers/admin'
 
 const router = express.Router()
 
