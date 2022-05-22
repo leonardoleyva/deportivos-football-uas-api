@@ -4,9 +4,9 @@
   "description": "",
   "main": "dist/app.js",
   "scripts": {
-    "build": "rimraf ./build && tsc",
+    "build": "rm -rf ./dist && tsc",
     "prestart": "npm run build",
-    "start": "node build/app.js",
+    "start": "node dist/app.js",
     "dev": "nodemon dist/app.js",
     "watch": "tsc -w"
   },
