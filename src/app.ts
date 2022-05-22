@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/', mainRouter)
 
 app.listen(8000, () => {
-  console.log('Running app')
+  console.log('Server running...')
 })
 
 export default app
