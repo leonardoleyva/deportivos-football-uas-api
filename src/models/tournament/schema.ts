@@ -101,9 +101,30 @@ export const TournamentSchema = new Schema({
   status: { type: String, required: true },
 })
 
+export const PlayerSchema = new Schema({
+  name: { type: String, trim: true, required: true },
+  curp: {
+    type: String,
+    trim: true,
+    required: true,
+    minlength: 18,
+    maxlength: 18,
+  },
+  playerNumber: { type: Number, trim: true, required: true, min: 0, max: 100 },
+})
+
+export const TeamSchema = new Schema({
+  name: { type: String, trim: true, required: true },
+  teamLogo: { type: String, trim: true, required: true },
+  tournamentId: { type: String, trim: true, required: true },
+  players: [{ _id: String, name: String, curp: String, playerNumber: Number }],
+})
+
 model('tournament-categories', TournamentCategorySchema)
 model('tournament-branches', TournamentBranchSchema)
 model('tournament-types', TournamentTypeSchema)
 model('cities', CitySchema)
 model('places', PlacesSchema)
 model('tournaments', TournamentSchema)
+model('players', PlayerSchema)
+model('teams', TeamSchema)

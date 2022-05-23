@@ -7,8 +7,6 @@ import {
 } from '../tournament.functions'
 import { CreateTournamentBodyParams } from '../type'
 import { Request } from '../../helpers/type'
-import '../../models/tournament/schema'
-import '../../models/user/schema'
 
 const Tournaments = mongoose.model('tournaments')
 const TournamentCategories = mongoose.model('tournament-categories')
