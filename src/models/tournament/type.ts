@@ -71,5 +71,6 @@ export interface Team {
   readonly name: string
   readonly teamLogo: string
   readonly tournamentId: string
+  readonly categoryId: string
   readonly players: Player[]
 }

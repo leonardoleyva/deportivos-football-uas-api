@@ -117,6 +117,7 @@ export const TeamSchema = new Schema({
   name: { type: String, trim: true, required: true },
   teamLogo: { type: String, trim: true, required: true },
   tournamentId: { type: String, trim: true, required: true },
+  categoryId: { type: String, trim: true, required: true },
   players: [{ _id: String, name: String, curp: String, playerNumber: Number }],
 })
 

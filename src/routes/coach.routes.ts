@@ -2,6 +2,7 @@ import express from 'express'
 import {
   handleCreateTeam,
   handleGetMixedCategoriesByTournament,
+  handleGetTeams,
   handleGetTournaments,
 } from '../controllers/coach'
 
@@ -13,5 +14,6 @@ router.get(
   handleGetMixedCategoriesByTournament,
 )
 router.post('/tournament/:id/team', handleCreateTeam)
+router.get('/tournament/:id/category/:mixedCategoryId/teams', handleGetTeams)
 
 export default router

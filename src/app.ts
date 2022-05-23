@@ -2,8 +2,9 @@ import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 
-import mainRouter from './routes/main.routes'
 import './db/connection'
+import './db/bucket'
+import mainRouter from './routes/main.routes'
 
 const app = express()
 
