@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import { Response } from 'express'
 import {
+  fetchTeamsMetaData,
   fetchTournamentMetaDataToCreate,
   fetchTournamentMetaDataToUpdate,
   mixCategoryWithBranches,
@@ -11,6 +12,7 @@ import {
 } from '../type'
 import { Request } from '../../helpers/type'
 import { tournamentStageBasedOnTeamsAmount } from '../constants'
+import { Team, TeamOnMatch } from '../../models/tournament'
 
 const Tournaments = mongoose.model('tournaments')
 const TournamentCategories = mongoose.model('tournament-categories')
@@ -165,15 +167,20 @@ export const handleSetTournamentMatches = async (
 ) => {
   try {
     const { body, params } = req
-    const { teams } = body
+
+    const teams: Team[] = await fetchTeamsMetaData(body.teamsIds)
 
     const initialStage = tournamentStageBasedOnTeamsAmount[teams.length]
 
-    const teamsMatches: any[] = []
+    const teamsMatches: TeamOnMatch[][] = []
     teams.forEach((team, index) => {
       if (index % 2 === 0) {
-        const teamA = { ...team, goals: 0, status: 'pending' }
-        const teamB = { ...teams[index + 1], goals: 0, status: 'pending' }
+        const teamA: TeamOnMatch = { ...team, goals: 0, status: 'pending' }
+        const teamB: TeamOnMatch = {
+          ...teams[index + 1],
+          goals: 0,
+          status: 'pending',
+        }
         teamsMatches.push([teamA, teamB])
       }
     })
@@ -209,6 +216,28 @@ export const handleGetTournamentMatches = async (
     })
     res.status(200).send(res.json(tournamentMatches))
   } catch (err) {
+    res.status(400).send(res.json())
+  }
+}
+
+export const handleUpdateTeamScore = async (
+  req: Request<any>,
+  res: Response,
+) => {
+  try {
+    const { params } = req
+
+    const tournamentMatches = await TournamentMatches.findOne({
+      tournamentId: params.id,
+      category: params.mixedCategoryId,
+    })
+    // TournamentMatches.
+    res.status(200).send(res.json(tournamentMatches))
+  } catch (err) {
+    if (err.name === 'ValidationError') {
+      res.status(400).send(res.json(err.errors))
+      return
+    }
     res.status(400).send(res.json())
   }
 }

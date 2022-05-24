@@ -1,5 +1,3 @@
-import { Team } from '../models/tournament'
-
 export interface TournamentBodyParams {
   name: string
   type: string
@@ -23,5 +21,5 @@ export interface UpdateTournamentBodyParams
   extends Omit<TournamentBodyParams, 'branches' | 'category'> {}
 
 export interface SetTournamentMatchesBodyParams {
-  teams: Team[]
+  teamsIds: string[]
 }

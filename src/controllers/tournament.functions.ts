@@ -4,6 +4,7 @@ import {
   MixedCategory,
   MixedCategoryStatus,
   Place,
+  Team,
   TournamentBranch,
   TournamentCategory,
   TournamentType,
@@ -20,6 +21,7 @@ const Places = mongoose.model('places')
 const Admins = mongoose.model('admins')
 const Coaches = mongoose.model('coaches')
 const Referees = mongoose.model('referees')
+const Teams = mongoose.model('teams')
 
 export const mixCategoryWithBranches = (
   category: TournamentCategory,
@@ -130,4 +132,12 @@ export const fetchTournamentMetaDataToUpdate = async (
     coaches,
     referees,
   }
+}
+
+export const fetchTeamsMetaData = async (teamsIds: string[]) => {
+  const teams: Team[] = []
+  for (let id of teamsIds) {
+    teams.push(await Teams.findById(id))
+  }
+  return teams
 }
