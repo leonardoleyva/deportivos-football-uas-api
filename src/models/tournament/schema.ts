@@ -121,6 +121,101 @@ export const TeamSchema = new Schema({
   players: [{ _id: String, name: String, curp: String, playerNumber: Number }],
 })
 
+export const TournamentMatchSchema = new Schema({
+  tournamentId: { type: String, trim: true, required: true },
+  categoryId: { type: String, trim: true, required: true },
+  initialStage: { type: String, trim: true, required: true },
+  currentStage: { type: String, trim: true, required: true },
+  top16: {
+    type: {
+      status: { type: String, trim: true },
+      matches: [
+        [
+          {
+            _id: { type: String, trim: true, required: true },
+            name: { type: String, trim: true, required: true },
+            teamLogo: { type: String, trim: true, required: true },
+            tournamentId: { type: String, trim: true, required: true },
+            categoryId: { type: String, trim: true, required: true },
+            players: [
+              { _id: String, name: String, curp: String, playerNumber: Number },
+            ],
+            goals: { type: Number, required: true },
+            status: { type: String, trim: true, required: true },
+          },
+        ],
+      ],
+      required: false,
+    },
+  },
+  quartersFinal: {
+    type: {
+      status: { type: String, trim: true },
+      matches: [
+        [
+          {
+            _id: { type: String, trim: true, required: true },
+            name: { type: String, trim: true, required: true },
+            teamLogo: { type: String, trim: true, required: true },
+            tournamentId: { type: String, trim: true, required: true },
+            categoryId: { type: String, trim: true, required: true },
+            players: [
+              { _id: String, name: String, curp: String, playerNumber: Number },
+            ],
+            goals: { type: Number, required: true },
+            status: { type: String, trim: true, required: true },
+          },
+        ],
+      ],
+      required: false,
+    },
+  },
+  semiFinal: {
+    type: {
+      status: { type: String, trim: true },
+      matches: [
+        [
+          {
+            _id: { type: String, trim: true, required: true },
+            name: { type: String, trim: true, required: true },
+            teamLogo: { type: String, trim: true, required: true },
+            tournamentId: { type: String, trim: true, required: true },
+            categoryId: { type: String, trim: true, required: true },
+            players: [
+              { _id: String, name: String, curp: String, playerNumber: Number },
+            ],
+            goals: { type: Number, required: true },
+            status: { type: String, trim: true, required: true },
+          },
+        ],
+      ],
+      required: false,
+    },
+  },
+  final: {
+    type: {
+      status: { type: String, trim: true },
+      matches: [
+        [
+          {
+            _id: { type: String, trim: true, required: true },
+            name: { type: String, trim: true, required: true },
+            teamLogo: { type: String, trim: true, required: true },
+            tournamentId: { type: String, trim: true, required: true },
+            categoryId: { type: String, trim: true, required: true },
+            players: [
+              { _id: String, name: String, curp: String, playerNumber: Number },
+            ],
+            goals: { type: Number, required: true },
+            status: { type: String, trim: true, required: true },
+          },
+        ],
+      ],
+      required: false,
+    },
+  },
+})
+
 model('tournament-categories', TournamentCategorySchema)
 model('tournament-branches', TournamentBranchSchema)
 model('tournament-types', TournamentTypeSchema)
@@ -129,3 +224,4 @@ model('places', PlacesSchema)
 model('tournaments', TournamentSchema)
 model('players', PlayerSchema)
 model('teams', TeamSchema)
+model('tournament-matches', TournamentMatchSchema)

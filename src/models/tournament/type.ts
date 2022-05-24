@@ -36,7 +36,7 @@ export interface MixedCategory {
   readonly status: MixedCategoryStatus
 }
 
-export type TournamentStatus = 'in-progress' | 'active' | 'done' 
+export type TournamentStatus = 'in-progress' | 'active' | 'done'
 
 export interface Tournament {
   readonly _id: string
@@ -63,14 +63,49 @@ export interface Tournament {
 export interface Player {
   readonly _id: string
   readonly name: string
-  readonly curp: String,
+  readonly curp: String
   readonly playerNumber: number
 }
 
 export interface Team {
+  readonly _id: string
   readonly name: string
   readonly teamLogo: string
   readonly tournamentId: string
   readonly categoryId: string
   readonly players: Player[]
+}
+
+export type TeamOnMatchStatus = 'pending' | 'winner' | 'loser'
+
+export interface TeamOnMatch extends Team {
+  readonly goals: number
+  readonly status: TeamOnMatchStatus
+}
+
+export type TournamentStage = 'top16' | 'quartersFinal' | 'semiFinal' | 'final'
+
+export type TournamentStageStatus = 'in-progress' | 'done'
+
+export interface TournamentMatch {
+  readonly tournamentId: string
+  readonly categoryId: string
+  readonly initialStage: TournamentStage
+  readonly currentStage: TournamentStage
+  top16: {
+    status: TournamentStageStatus
+    matches: TeamOnMatch[]
+  }
+  quartersFinal: {
+    status: TournamentStageStatus
+    matches: TeamOnMatch[]
+  }
+  semiFinal: {
+    status: TournamentStageStatus
+    matches: TeamOnMatch[]
+  }
+  final: {
+    status: TournamentStageStatus
+    matches: TeamOnMatch[]
+  }
 }

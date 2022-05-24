@@ -5,6 +5,7 @@ import {
   handleGetFieldsetDataPlaces,
   handleGetOneTournament,
   handleGetTournaments,
+  handleSetTournamentMatches,
   handleUpdateTournamentBaseData,
 } from '../controllers/admin'
 
@@ -18,6 +19,10 @@ router.get('/tournament/fieldset-data/all', handleGetFieldsetData)
 router.get(
   '/tournament/fieldset-data/places/:cityId',
   handleGetFieldsetDataPlaces,
+)
+router.post(
+  '/tournament/:id/category/:mixedCategoryId/matches',
+  handleSetTournamentMatches,
 )
 
 export default router
