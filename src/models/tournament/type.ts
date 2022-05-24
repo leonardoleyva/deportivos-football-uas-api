@@ -88,24 +88,25 @@ export type TournamentStage = 'top16' | 'quartersFinal' | 'semiFinal' | 'final'
 export type TournamentStageStatus = 'in-progress' | 'done'
 
 export interface TournamentMatch {
+  readonly _id: string
   readonly tournamentId: string
   readonly categoryId: string
   readonly initialStage: TournamentStage
   readonly currentStage: TournamentStage
   top16: {
     status: TournamentStageStatus
-    matches: TeamOnMatch[]
+    matches: TeamOnMatch[][]
   }
   quartersFinal: {
     status: TournamentStageStatus
-    matches: TeamOnMatch[]
+    matches: TeamOnMatch[][]
   }
   semiFinal: {
     status: TournamentStageStatus
-    matches: TeamOnMatch[]
+    matches: TeamOnMatch[][]
   }
   final: {
     status: TournamentStageStatus
-    matches: TeamOnMatch[]
+    matches: TeamOnMatch[][]
   }
 }

@@ -219,25 +219,3 @@ export const handleGetTournamentMatches = async (
     res.status(400).send(res.json())
   }
 }
-
-export const handleUpdateTeamScore = async (
-  req: Request<any>,
-  res: Response,
-) => {
-  try {
-    const { params } = req
-
-    const tournamentMatches = await TournamentMatches.findOne({
-      tournamentId: params.id,
-      category: params.mixedCategoryId,
-    })
-    // TournamentMatches.
-    res.status(200).send(res.json(tournamentMatches))
-  } catch (err) {
-    if (err.name === 'ValidationError') {
-      res.status(400).send(res.json(err.errors))
-      return
-    }
-    res.status(400).send(res.json())
-  }
-}
