@@ -4,6 +4,7 @@ import {
   handleGetFieldsetData,
   handleGetFieldsetDataPlaces,
   handleGetOneTournament,
+  handleGetTournamentMatches,
   handleGetTournaments,
   handleSetTournamentMatches,
   handleUpdateTournamentBaseData,
@@ -23,6 +24,10 @@ router.get(
 router.post(
   '/tournament/:id/category/:mixedCategoryId/matches',
   handleSetTournamentMatches,
+)
+router.get(
+  '/tournament/:id/category/:mixedCategoryId/matches',
+  handleGetTournamentMatches,
 )
 
 export default router

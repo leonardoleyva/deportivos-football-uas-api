@@ -178,7 +178,7 @@ export const handleSetTournamentMatches = async (
       }
     })
 
-    await new TournamentMatches({
+    const tournamentMatches = await new TournamentMatches({
       tournamentId: params.id,
       categoryId: params.mixedCategoryId,
       initialStage,
@@ -188,12 +188,27 @@ export const handleSetTournamentMatches = async (
         matches: teamsMatches,
       },
     }).save()
-    res.status(200).send(res.json(teamsMatches))
+    res.status(200).send(res.json(tournamentMatches))
   } catch (err) {
     if (err.name === 'ValidationError') {
       res.status(400).send(res.json(err.errors))
       return
     }
+    res.status(400).send(res.json())
+  }
+}
+
+export const handleGetTournamentMatches = async (
+  req: Request<SetTournamentMatchesBodyParams>,
+  res: Response,
+) => {
+  try {
+    const tournamentMatches = await TournamentMatches.findOne({
+      tournamentId: req.params.id,
+      category: req.params.mixedCategoryId,
+    })
+    res.status(200).send(res.json(tournamentMatches))
+  } catch (err) {
     res.status(400).send(res.json())
   }
 }
