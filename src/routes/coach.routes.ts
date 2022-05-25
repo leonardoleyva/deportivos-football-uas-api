@@ -1,6 +1,7 @@
 import express from 'express'
 import {
   handleCreateTeam,
+  handleFinishMatch,
   handleGetMixedCategoriesByTournament,
   handleGetTeams,
   handleGetTournaments,
@@ -19,6 +20,10 @@ router.get('/tournament/:id/category/:mixedCategoryId/teams', handleGetTeams)
 router.put(
   '/tournament/:id/category/:mixedCategoryId/scores',
   handleUpdateTeamScore,
+)
+router.put(
+  '/tournament/:id/category/:mixedCategoryId/match-status',
+  handleFinishMatch,
 )
 
 export default router

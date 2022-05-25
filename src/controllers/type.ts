@@ -23,3 +23,11 @@ export interface UpdateTournamentBodyParams
 export interface SetTournamentMatchesBodyParams {
   teamsIds: string[]
 }
+
+export interface UpdateTeamScoreBodyParams {
+  teams: { _id: string, goals: number }[]
+}
+
+export interface FinishTournamentMatchBodyParams {
+  teamsIds: string[]
+}

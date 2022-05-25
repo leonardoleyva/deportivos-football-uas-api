@@ -62,13 +62,8 @@ export const fetchPlacesMetaData = async (placesIds: string[]) => {
   return places
 }
 
-export const fetchAdminsMetaData = async (adminsIds: string[]) => {
-  const admins = []
-  for (let id of adminsIds) {
-    admins.push(await Admins.findById(id))
-  }
-  return admins
-}
+export const fetchAdminsMetaData = async (adminsIds: string[]) =>
+  Admins.find({ _id: { $in: adminsIds } })
 
 export const fetchCoachesMetaData = async (coachesIds: string[]) => {
   const coaches = []
