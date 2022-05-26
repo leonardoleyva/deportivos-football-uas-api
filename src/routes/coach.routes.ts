@@ -3,6 +3,7 @@ import {
   handleCreateTeam,
   handleFinishMatch,
   handleGetMixedCategoriesByTournament,
+  handleGetOneMatch,
   handleGetTeams,
   handleGetTournaments,
   handleUpdateTeamScore,
@@ -25,5 +26,6 @@ router.put(
   '/tournament/:id/category/:mixedCategoryId/match-status',
   handleFinishMatch,
 )
+router.get('/tournament/:id/category/:mixedCategoryId/match', handleGetOneMatch)
 
 export default router

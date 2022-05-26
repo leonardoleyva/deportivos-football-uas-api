@@ -103,7 +103,7 @@ export const handleUpdateTeamScore = async (
 
     const tournamentMatches: TournamentMatch = await TournamentMatches.findOne({
       tournamentId: params.id,
-      category: params.mixedCategoryId,
+      categoryId: params.mixedCategoryId,
     })
 
     const updatedMatch: TeamOnMatch[] = []
@@ -155,7 +155,7 @@ export const handleFinishMatch = async (
 
     const tournamentMatches: TournamentMatch = await TournamentMatches.findOne({
       tournamentId: params.id,
-      category: params.mixedCategoryId,
+      categoryId: params.mixedCategoryId,
     })
 
     const updatedMatch: TeamOnMatch[] = []
@@ -265,6 +265,31 @@ export const handleFinishMatch = async (
       res.status(400).send(res.json(err.errors))
       return
     }
+    res.status(400).send(res.json())
+  }
+}
+
+export const handleGetOneMatch = async (
+  req: Request<FinishTournamentMatchBodyParams>,
+  res: Response,
+) => {
+  try {
+    const { body, params } = req
+    const { teamsIds } = body
+
+    const tournamentMatches: TournamentMatch = await TournamentMatches.findOne({
+      tournamentId: params.id,
+      categoryId: params.mixedCategoryId,
+    })
+
+    const match = tournamentMatches[
+      tournamentMatches.currentStage
+    ].matches.filter(
+      match => match[0]._id === teamsIds[0] && match[1]._id === teamsIds[1],
+    )
+
+    res.status(200).send(res.json(match))
+  } catch (err) {
     res.status(400).send(res.json())
   }
 }

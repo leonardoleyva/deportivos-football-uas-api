@@ -212,7 +212,7 @@ export const handleGetTournamentMatches = async (
   try {
     const tournamentMatches = await TournamentMatches.findOne({
       tournamentId: req.params.id,
-      category: req.params.mixedCategoryId,
+      categoryId: req.params.mixedCategoryId,
     })
     res.status(200).send(res.json(tournamentMatches))
   } catch (err) {
