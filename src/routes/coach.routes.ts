@@ -26,6 +26,6 @@ router.put(
   '/tournament/:id/category/:mixedCategoryId/match-status',
   handleFinishMatch,
 )
-router.get('/tournament/:id/category/:mixedCategoryId/match', handleGetOneMatch)
+router.post('/tournament/:id/category/:mixedCategoryId/get-match', handleGetOneMatch)
 
 export default router
