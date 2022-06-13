@@ -6,7 +6,9 @@ export interface OfficialRol {
 export interface PrivateUser {
   readonly _id: string
   readonly name: string
-  readonly role: OfficialRol[]
+  readonly username: string
+  readonly password: string
+  readonly role: OfficialRol
 }
 
 export interface PublicUser {

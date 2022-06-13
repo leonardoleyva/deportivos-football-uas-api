@@ -2,6 +2,8 @@ import { model, Schema } from 'mongoose'
 
 const PrivateUserSchema = new Schema({
   name: { type: String, trim: true, required: true },
+  username: { type: String, trim: true, required: false },
+  password: { type: String, trim: true, required: false },
   role: { type: { _id: String, name: String }, required: true },
 })
 

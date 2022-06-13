@@ -31,3 +31,10 @@ export interface UpdateTeamScoreBodyParams {
 export interface FinishTournamentMatchBodyParams {
   teamsIds: string[]
 }
+
+export interface SignUpBodyParams {
+  name: string
+  username: string
+  password: string
+  roleId: string
+}
