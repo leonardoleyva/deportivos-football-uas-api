@@ -38,3 +38,9 @@ export interface SignUpBodyParams {
   password: string
   roleId: string
 }
+
+export interface LoginBodyParams {
+  username: string
+  password: string
+  roleId: string
+}

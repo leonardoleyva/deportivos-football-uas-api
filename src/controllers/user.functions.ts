@@ -19,7 +19,7 @@ export const createReferee = async (data: Omit<PrivateUser, '_id'>) =>
 export const fetchOfficialRolMetaData = (roleId: string) =>
   OfficialRoles.findById<OfficialRol>(roleId)
 
-export const createPrivateUserBasedOnRole = (
+export const createPrivateUserBasedOnRole = async (
   privateUserData: Omit<PrivateUser, '_id'>,
 ): Promise<PrivateUser | null | any> => {
   switch (privateUserData.role.name) {
@@ -29,6 +29,32 @@ export const createPrivateUserBasedOnRole = (
       return createCoach(privateUserData)
     case 'referee':
       return createReferee(privateUserData)
+    default:
+      console.error('Official role was not recognized')
+      return null
+  }
+}
+
+export const fetchOneAdminMetaData = async (username: string) =>
+  Admins.findOne<PrivateUser>({ username })
+
+export const fetchOneCoachMetaData = async (username: string) =>
+  Coaches.findOne<PrivateUser>({ username })
+
+export const fetchOneRefereeMetaData = async (username: string) =>
+  Referees.findOne<PrivateUser>({ username })
+
+export const getPrivateUserBasedOnRole = async (
+  username: string,
+  role: OfficialRol,
+): Promise<PrivateUser | null> => {
+  switch (role.name) {
+    case 'admin':
+      return fetchOneAdminMetaData(username)
+    case 'coach':
+      return fetchOneCoachMetaData(username)
+    case 'referee':
+      return fetchOneRefereeMetaData(username)
     default:
       console.error('Official role was not recognized')
       return null
